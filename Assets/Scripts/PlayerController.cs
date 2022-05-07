@@ -21,8 +21,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveDirection = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, moveDirection.y, Input.GetAxis("Vertical") * moveSpeed);
+        // moveDirection = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, moveDirection.y, Input.GetAxis("Vertical") * moveSpeed);
         
+        // move in direction that player is facing
+        moveDirection = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
+        // normalize to stop player from zoooooming when they hit two arrow keys at once
+        moveDirection = moveDirection.normalized * moveSpeed;
+
         // allow jumping only if player is touching ground -- no double jumps
         if (controller.isGrounded) {
             moveDirection.y = 0f;
