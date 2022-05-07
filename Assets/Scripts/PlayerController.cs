@@ -21,12 +21,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveDirection = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, 0f, Input.GetAxis("Vertical") * moveSpeed);
+        moveDirection = new Vector3(Input.GetAxis("Horizontal") * moveSpeed, moveDirection.y, Input.GetAxis("Vertical") * moveSpeed);
         
-        // control jumping
-        if (Input.GetButtonDown("Jump")) {
-            moveDirection.y = jumpForce;
+        // allow jumping only if player is touching ground -- no double jumps
+        if (controller.isGrounded) {
+            // moveDirection.y = 0f;
+
+            if (Input.GetButtonDown("Jump")) {
+                moveDirection.y = jumpForce;
+            }
         }
+  
 
         // gravity
         moveDirection.y = moveDirection.y + Physics.gravity.y * gravityScale;
