@@ -29,7 +29,8 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    // Use LateUpdate to make sure that the player updates before the camera
+    void LateUpdate()
     {
         // rotate player based on mouse
         // vertical applied to x and horizontal applied to y
@@ -45,6 +46,11 @@ public class CameraController : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(desiredXAngle, desiredYAngle, 0);
 
         transform.position = target.position - rotation * offset;
+        // stop camera from clipping through the world
+        if (transform.position.y < target.position.y) {
+            transform.position = new Vector3 (transform.position.x, target.position.y, transform.position.z);
+        }
+
         transform.LookAt(target);
     }
 }
