@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         
         // allow jumping only if player is touching ground -- no double jumps
         if (controller.isGrounded) {
-            // moveDirection.y = 0f;
+            moveDirection.y = 0f;
 
             if (Input.GetButtonDown("Jump")) {
                 moveDirection.y = jumpForce;
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
   
 
         // gravity
-        moveDirection.y = moveDirection.y + Physics.gravity.y * gravityScale;
+        moveDirection.y = moveDirection.y + Physics.gravity.y * gravityScale * Time.deltaTime;
 
         // update character controller
         controller.Move(moveDirection * Time.deltaTime);
