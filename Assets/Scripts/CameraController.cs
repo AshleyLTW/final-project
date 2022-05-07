@@ -11,6 +11,8 @@ public class CameraController : MonoBehaviour
     public float rotateSpeed;
     // pivot allows us to rotate camera up/down using mouse while rotating camera & player left/right using mouse
     public Transform pivot;
+    public float maxViewAngle;
+    public float minViewAngle; // negative value
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,13 @@ public class CameraController : MonoBehaviour
 
         float vertical = Input.GetAxis("Mouse Y") * rotateSpeed;
         pivot.Rotate(-vertical, 0, 0);
+
+        // limit up/down camera angle
+        if (pivot.rotation.eulerAngles.x > maxViewAngle && pivot.rotation.eulerAngles.x < 180f) {
+            pivot.rotation = Quaternion.Euler(45f, 0, 0);
+        } else if (pivot.rotation.eulerAngles.x > 180f && pivot.rotation.eulerAngles.x < 360f + minViewAngle) {
+            pivot.rotation = Quaternion.Euler(315f, 0, 0);
+        }
 
         // rotate camera around player (and mouse) + camera follows player around
         float desiredYAngle = target.eulerAngles.y;
