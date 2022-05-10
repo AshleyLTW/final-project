@@ -34,11 +34,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Depth: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors: []
   m_BuildTextureStacks: []
---- !u!114 &3224009781743431892
+--- !u!114 &7173453958188250644
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
