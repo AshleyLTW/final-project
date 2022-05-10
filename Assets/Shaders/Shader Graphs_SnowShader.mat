@@ -58,5 +58,5 @@ Material:
     - _SnowScale: 80
     - _VertexOffset: 0.05
     m_Colors:
-    - _SnowColor: {r: 1, g: 1, b: 1, a: 0.3921569}
+    - _SnowColor: {r: 0.4528302, g: 0.42933428, b: 0.42933428, a: 0.85882354}
   m_BuildTextureStacks: []
