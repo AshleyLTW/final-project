@@ -40,7 +40,11 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _SnowBrightness: 1.5
+    - _SnowHeight: 2
+    - _SnowPower: 2
     - _SnowScale: 50
+    - _SnowUneveness: 1.5
     - _VertexOffset: 1
     m_Colors:
     - _SnowColor: {r: 1, g: 1, b: 1, a: 1}
