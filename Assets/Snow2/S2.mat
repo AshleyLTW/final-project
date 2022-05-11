@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2715524831566092786
+--- !u!114 &-1874468979302204232
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: S2
+  m_Name: s2
   m_Shader: {fileID: -6465566751694194690, guid: 3a71b62833ee745888b76e3850a24657, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -53,9 +53,11 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _SnowBrightness: 1
+    - _SnowHeight: 3
     - _SnowScale: 80
-    - _VertexOffset: 2
-    - _WhiteScale: 0.5
+    - _SnowUneveness: 1
+    - _VertexOffset: 1.5
     m_Colors:
-    - _SnowColor: {r: 0.6698113, g: 0.6603329, b: 0.6603329, a: 1}
+    - _SnowColor: {r: 0.04509804, g: 0.07254902, b: 0.09411765, a: 1}
   m_BuildTextureStacks: []
