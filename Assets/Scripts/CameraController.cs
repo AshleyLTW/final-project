@@ -13,6 +13,10 @@ public class CameraController : MonoBehaviour
     public Transform pivot;
     public float maxViewAngle;
     public float minViewAngle; // negative value
+    public float collisionDist = 1.0f;
+
+    //raycasting to avoid clipping
+    private RaycastHit _camHit;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +46,7 @@ public class CameraController : MonoBehaviour
         float vertical = Input.GetAxis("Mouse Y") * rotateSpeed;
         pivot.Rotate(-vertical, 0, 0);
 
+
         // limit up/down camera angle
         if (pivot.rotation.eulerAngles.x > maxViewAngle && pivot.rotation.eulerAngles.x < 180f) {
             pivot.rotation = Quaternion.Euler(65f, 0, 0);
@@ -49,15 +54,30 @@ public class CameraController : MonoBehaviour
             pivot.rotation = Quaternion.Euler(300f, 0, 0);
         }
 
+        
+
         // rotate camera around player (and mouse) + camera follows player around
         float desiredYAngle = target.eulerAngles.y;
         float desiredXAngle = pivot.eulerAngles.x;
         Quaternion rotation = Quaternion.Euler(desiredXAngle, desiredYAngle, 0);
 
+
+
         transform.position = target.position - rotation * offset;
         // stop camera from clipping through the world
         if (transform.position.y < target.position.y) {
             transform.position = new Vector3 (transform.position.x, target.position.y, transform.position.z);
+        }
+
+        if (Physics.Linecast(transform.position, target.position, out _camHit))
+        {
+            if (!_camHit.collider.gameObject.CompareTag("Player"))
+            {
+                transform.position = _camHit.point;
+                var localPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z + collisionDist);
+                transform.position = localPosition;
+            }
+
         }
 
         transform.LookAt(target);
