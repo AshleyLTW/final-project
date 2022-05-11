@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
         if (pivot.rotation.eulerAngles.x > maxViewAngle && pivot.rotation.eulerAngles.x < 180f) {
             pivot.rotation = Quaternion.Euler(65f, 0, 0);
         } else if (pivot.rotation.eulerAngles.x > 180f && pivot.rotation.eulerAngles.x < 360f + minViewAngle) {
-            pivot.rotation = Quaternion.Euler(315f, 0, 0);
+            pivot.rotation = Quaternion.Euler(300f, 0, 0);
         }
 
         // rotate camera around player (and mouse) + camera follows player around
