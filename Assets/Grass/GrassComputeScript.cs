@@ -37,9 +37,13 @@ public class GrassComputeScript : MonoBehaviour
     [Header("Wind")]
     public float windSpeed = 10;
     public float windStrength = 0.05f;
+
     // Interactor
+    [SerializeField]
+    ShaderInteractor interactor;
+    
     public float affectRadius = 1.5f;
-    public float affectStrength = 1;
+    public float affectStrength = 5;
     // LOD
     [Header("LOD")]
     public float minFadeDistance = 40;
@@ -52,8 +56,6 @@ public class GrassComputeScript : MonoBehaviour
     // Other
     [Header("Other")]
     public UnityEngine.Rendering.ShadowCastingMode castShadow;
-
-    [SerializeField] private ShaderInteractor[] interactors = default;
 
     private Camera m_MainCamera;
 
@@ -315,9 +317,6 @@ public class GrassComputeScript : MonoBehaviour
 
     private void SetGrassDataBase()
     {
-
-        interactors = (ShaderInteractor[])FindObjectsOfType(typeof(ShaderInteractor));
-        
         // Send things to compute shader that dont need to be set every frame
         m_InstantiatedComputeShader.SetMatrix("_LocalToWorld", transform.localToWorldMatrix);
         m_InstantiatedComputeShader.SetFloat("_Time", Time.time);
@@ -364,22 +363,14 @@ public class GrassComputeScript : MonoBehaviour
         //  m_InstantiatedComputeShader.SetMatrix("_LocalToWorld", transform.localToWorldMatrix);
         m_InstantiatedComputeShader.SetFloat("_Time", Time.time);
 
-        if (interactors.Length > 0)
+        if (interactor != null)
         {
-            Vector4[] positions = new Vector4[interactors.Length];
-            for (int i = 0; i < interactors.Length; i++)
-            {
-                positions[i] = interactors[i].transform.position;
-
-            }
-            int shaderID = Shader.PropertyToID("_PositionsMoving");
-            m_InstantiatedComputeShader.SetVectorArray(shaderID, positions);
-            m_InstantiatedComputeShader.SetFloat("_InteractorsLength", interactors.Length);
+            m_InstantiatedComputeShader.SetVector("_PositionMoving", interactor.transform.position);
         }
-        // else
-        // {
-        //     m_InstantiatedComputeShader.SetVector("_PositionMoving", Vector3.zero);
-        // }
+        else
+        {
+             m_InstantiatedComputeShader.SetVector("_PositionMoving", Vector3.zero);
+        }
 
         if (m_MainCamera != null)
         {
